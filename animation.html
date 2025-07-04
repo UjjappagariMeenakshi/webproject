@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Animation</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f0f0f0;
+            perspective: 1000px;
+        }
+        .container {
+            width: 80%;
+            margin: 100px auto;
+            text-align: center;
+        }
+        .cube {
+            width: 200px;
+            height: 200px;
+            transform-style: preserve-3d;
+            transform: rotateX(0deg) rotateY(0deg);
+            animation: rotate 10s linear infinite;
+            margin: 20px auto;
+        }
+        .face {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border: 1px solid #000;
+            text-align: center;
+            font-size: 24px;
+            line-height: 200px;
+            background-size: cover;
+        }
+        .front {
+            background-color: #fff;
+            background-image: url('https://picsum.photos/200/200');
+            transform: translateZ(100px);
+        }
+        .back {
+            background-color: #ccc;
+            background-image: url('https://picsum.photos/200/201');
+            transform: rotateY(180deg) translateZ(100px);
+        }
+        .left {
+            background-color: #eee;
+            background-image: url('https://picsum.photos/200/202');
+            transform: rotateY(-90deg) translateZ(100px);
+        }
+        .right {
+            background-color: #ddd;
+            background-image: url('https://picsum.photos/200/203');
+            transform: rotateY(90deg) translateZ(100px);
+        }
+        .top {
+            background-color: #aaa;
+            background-image: url('https://picsum.photos/200/204');
+            transform: rotateX(90deg) translateZ(100px);
+        }
+        .bottom {
+            background-color: #bbb;
+            background-image: url('https://picsum.photos/200/205');
+            transform: rotateX(-90deg) translateZ(100px);
+        }
+        @keyframes rotate {
+            0% {
+                transform: rotateX(0deg) rotateY(0deg);
+            }
+            50% {
+                transform: rotateX(360deg) rotateY(180deg);
+            }
+            100% {
+                transform: rotateX(720deg) rotateY(360deg);
+            }
+        }
+        #modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.4);
+        }
+        #modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #000;
+            width: 80%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="cube">
+            <div class="face front">Front</div>
+            <div class="face back">Back</div>
+            <div class="face left">Left</div>
+            <div class="face right">Right</div>
+            <div class="face top">Top</div>
+            <div class="face bottom">Bottom</div>
+        </div>
+        <button class="btn btn-primary" onclick="playAnimation()">Play</button>
+        <button class="btn btn-secondary" onclick="pauseAnimation()">Pause</button>
+        <button class="btn btn-warning" onclick="resetAnimation()">Reset</button>
+        <button class="btn btn-info" onclick="openModal()">Info</button>
+    </div>
+    <div id="modal">
+        <div id="modal-content">
+            <h2>3D Animation Info</h2>
+            <p>This is a 3D animation created using HTML, CSS, and JavaScript.</p>
+            <p>It features a rotating cube with six faces, each with a different color and background image.</p>
+            <button class="btn btn-secondary" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+    <script>
+        let cube = document.querySelector('.cube');
+        let playButton = document.querySelector('.btn-primary');
+        let pauseButton = document.querySelector('.btn-secondary');
+        let resetButton = document.querySelector('.btn-warning');
+        let modal = document.getElementById('modal');
+        let modalContent = document.getElementById('modal-content');
+        
+        function playAnimation() {
+            cube.style.animationPlayState = 'running';
+        }
+        
+        function pauseAnimation() {
+            cube.style.animationPlayState = 'paused';
+        }
+        
+        function resetAnimation() {
+            cube.style.animation = 'none';
+            setTimeout(function() {
+                cube.style.animation = 'rotate 10s linear infinite';
+            }, 10);
+        }
+        
+        function openModal() {
+            modal.style.display = 'block';
+        }
+        
+        function closeModal() {
+            modal.style.display = 'none';
+        }
+    </script>
+</body>
+</html>
